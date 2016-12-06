@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using MVCLogin.Models;
+using System.Diagnostics;
+using Twilio;
 
 namespace MVCLogin
 {
@@ -28,7 +30,37 @@ namespace MVCLogin
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your SMS service here to send a text message.
-            return Task.FromResult(0);
+
+            ////ASPSMS Begin
+            // var soapSms = new MvcPWx.ASPSMSX2.ASPSMSX2SoapClient("ASPSMSX2Soap");
+            //soapSms.SendSimpleTextSMS(
+            //  System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"],
+            //  System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"],
+            //  message.Destination,
+            //  System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"],
+            //  message.Body);
+            //soapSms.Close();
+            //return Task.FromResult(0);
+            ////ASPSMS End
+
+
+
+            // Twilio Begin
+            var Twilio = new TwilioRestClient(
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"],
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"]);
+            var result = Twilio.SendMessage(
+              System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"],
+              message.Destination, message.Body
+            );
+            //Status is one of Queued, Sending, Sent, Failed or null if the number is not valid
+             Trace.TraceInformation(result.Status);
+            //Twilio doesn't currently have an async API, so return success.
+             return Task.FromResult(0);
+            // Twilio End
+
+
+            //return Task.FromResult(0);
         }
     }
 
