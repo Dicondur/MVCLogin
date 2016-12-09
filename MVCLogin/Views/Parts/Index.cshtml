@@ -1,6 +1,6 @@
 ﻿@model List<MVCLogin.Part>
 
-@{ 
+@{
     Layout = null;
     var grid = new WebGrid(canPage: true, rowsPerPage: 10);
     grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
@@ -10,29 +10,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width" />
     <title> Index </title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
     <div class="container">
-        <h2> Parts List</h2>
+        <h2>Parts List</h2>
 
         @*<nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <a href="#" class="navbar-brand">Search</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                @using (Html.BeginForm("index", "home", FormMethod.Get, new {@class="navbar-form navbar-let"}))
-                {
-                    <div class="form-group">
-                        <input type="text" name="search" value="@ViewBag.search class"form-control" placeholder="search" />
-                    </div>
-                    <button type="submit" value="Search" class="btn btn-success">Search</button>
-                }
-            </div>
+                <div class="container-fluid">
+                    <a href="#" class="navbar-brand">Search</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    @using (Html.BeginForm("index", "home", FormMethod.Get, new {@class="navbar-form navbar-let"}))
+                    {
+                        <div class="form-group">
+                            <input type="text" name="search" value="@ViewBag.search class"form-control" placeholder="search" />
+                        </div>
+                        <button type="submit" value="Search" class="btn btn-success">Search</button>
+                    }
+                </div>
 
-        </nav>*@
+            </nav>*@
 
 
         <nav class="navbar navbar-default">
@@ -70,8 +71,8 @@
                 </div>
             </div>
 
-            @Html.Hidden("dir",grid.SortDirection)
-            @Html.Hidden("col",grid.SortColumn)
+            @Html.Hidden("dir", grid.SortDirection)
+            @Html.Hidden("col", grid.SortColumn)
 
 
         </div>
